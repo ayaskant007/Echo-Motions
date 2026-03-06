@@ -1,0 +1,26 @@
+.portfolio-svg {
+  /* Hides the default fill and sets the line style */
+  fill: none;
+  stroke: #1d1d1f; /* Apple's signature dark gray/black */
+  stroke-width: 4px; /* Adjust thickness based on your font weight */
+}
+
+.portfolio-path {
+  /* This value needs to be slightly larger than your path's total length. 
+    You may need to tweak this number up or down once you paste your real path.
+  */
+  stroke-dasharray: 2500;
+  stroke-dashoffset: 2500;
+  
+  /* The animation: 3 seconds long, smooth start and end, stays drawn */
+  animation: drawPortfolio 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes drawPortfolio {
+  0% {
+    stroke-dashoffset: 2500;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
