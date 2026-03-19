@@ -17,7 +17,6 @@ prompter = "You are a sign language translator. I will give you a list of words,
 
 def speak(text):
     print(f"Jarvis: {text}")
-    # This is a "blocking" call (it finishes before moving on)
     speaker.Speak(text, 1)
 
 
@@ -58,7 +57,6 @@ def processCommand(command):
     else:
         speak(
             f"I heard {command}, and I am connecting with Gemini to support you.")
-        # Gemini API forwarding
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompter + command,
@@ -92,8 +90,8 @@ last_gesture =  None
 hands = mp_hands.Hands(
     static_image_mode = False,
     max_num_hands = 1,
-    min_detection_confidence = 0.8,
-    min_tracking_confidence = 0.5
+    min_detection_confidence = 0.9,
+    min_tracking_confidence = 0.6
 )
 
 cap = cv2.VideoCapture(0)
