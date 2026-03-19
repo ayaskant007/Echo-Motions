@@ -46,7 +46,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 ### 3. Install Dependencies
 ```bash
-pip install streamlit opencv-python mediapipe google-genai pywhatkit requests pywin32
+pip install -r requirements.txt
 ```
 
 ### 4. Run the Application
