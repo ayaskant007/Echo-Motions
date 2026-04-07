@@ -146,7 +146,6 @@ while True:
                         processCommand(command)
 
                     except Exception as e:
-                        # If it times out or doesn't hear you, just loop back
                         print(f"Status: {e}")
                         continue
                 last_gesture = current_gesture

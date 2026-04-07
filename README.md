@@ -70,9 +70,4 @@ Echo Motion uses a binary state system `(Thumb, Index, Middle, Ring, Pinky)` whe
 | `(0, 0, 0, 0, 1)` | **News** | Reads top headlines via News API |
 | `(1, 1, 0, 0, 1)` | **Love** | "I Love You" sign |
 
----
 
-## Contributing
-Contributions are welcome! If you'd like to add more complex gestures (like motion-based signs), feel free to fork and submit a PR.
-
----

@@ -29,7 +29,7 @@ with st.sidebar:
     news_key = st.text_input("News API Key", value="", type="password")
     
     st.markdown("### Controls")
-    if st.button("Start Camera 🟢" if not st.session_state.camera_active else "Stop Camera 🔴", use_container_width=True):
+    if st.button("Start Camera" if not st.session_state.camera_active else "Stop Camera 🔴", use_container_width=True):
         st.session_state.camera_active = not st.session_state.camera_active
         st.rerun()
 
@@ -262,7 +262,6 @@ with col1:
                         if current_gesture in gesture_map:
                             gesture = gesture_map[current_gesture]
                             try:
-                                # Pass the placeholder so the function can update the UI instantly
                                 processCommand(gesture, client, chat_placeholder)
                             except Exception as e:
                                 pass
@@ -272,7 +271,6 @@ with col1:
             else:
                 st.session_state.last_gesture = None
 
-            # Render the video frame
             frame_placeholder.image(rgb_frame, channels="RGB", use_container_width=True)
             
         cap.release()

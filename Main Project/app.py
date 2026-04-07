@@ -9,10 +9,8 @@ import pywhatkit
 import requests
 from google import genai
 
-# --- PAGE SETTINGS ---
 st.set_page_config(page_title="Echo Motion AI", layout="wide", page_icon="🤖")
 
-# --- INITIALIZE SESSION STATE (Jarvis's Memory) ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "last_gesture" not in st.session_state:
@@ -20,9 +18,8 @@ if "last_gesture" not in st.session_state:
 if "camera_active" not in st.session_state:
     st.session_state.camera_active = False
 
-# --- SIDEBAR CONFIGURATION ---
 with st.sidebar:
-    st.title("⚙️ Echo Motion Settings")
+    st.title("Echo Motion Settings")
 
     st.markdown("### API Keys")
     gemini_key = st.text_input(
@@ -31,7 +28,7 @@ with st.sidebar:
         "News API Key", value="5c0cc32bf90c4ad6a964f7695fa4e5cb", type="password")
 
     st.markdown("### Controls")
-    if st.button("Start Camera 🟢" if not st.session_state.camera_active else "Stop Camera 🔴"):
+    if st.button("Start Camera" if not st.session_state.camera_active else "Stop Camera"):
         st.session_state.camera_active = not st.session_state.camera_active
         st.rerun()
 
@@ -46,20 +43,17 @@ with st.sidebar:
     - 👌 **Youtube:** OK Sign
     """)
 
-# --- GLOBAL VARIABLES & FUNCTIONS ---
-# speaker = win32com.client.Dispatch("SAPI.SpVoice")
 prompter = "You are a sign language translator. I will give you a list of words, please turn them into a natural sentence and help with the users needs, answer whatever they ask."
 
 
 def log_chat(role, text):
-    """Helper to update the chat log on the UI"""
     st.session_state.chat_history.append({"role": role, "text": text})
 
 
 def speak(text):
     pythoncom.CoInitialize()
     log_chat("Jarvis", text)
-    speaker.Speak(text, 1)  # Blocking call removed so UI doesn't freeze
+    speaker.Speak(text, 1)
 
 
 def processCommand(command, client):
@@ -96,7 +90,7 @@ def processCommand(command, client):
         r = requests.get(
             f"https://newsapi.org/v2/top-headlines?country=in&apiKey={news_key}")
         if r.status_code == 200:
-            articles = r.json().get('articles', [])[:3]  # Read top 3 to avoid long blocks
+            articles = r.json().get('articles', [])[:3]
             for article in articles:
                 speak(article['title'])
     else:
@@ -111,12 +105,10 @@ def processCommand(command, client):
             speak(f"Error connecting to AI: {e}")
 
 
-# --- MAIN DASHBOARD LAYOUT ---
-st.title("🤖 Echo Motion Dashboard")
+st.title("Echo Motion Dashboard")
 
-col1, col2 = st.columns([2, 1])  # Camera gets 2/3 of screen, Chat gets 1/3
+col1, col2 = st.columns([2, 1])
 
-# Gesture dictionary
 gesture_map = {
     (0, 1, 0, 0, 0): "Point",
     (0, 1, 1, 0, 0): "Peace",
@@ -135,18 +127,17 @@ gesture_map = {
 }
 
 with col2:
-    st.subheader("💬 Live Chat")
-    # A container to hold the scrolling chat history
+    st.subheader("Live Chat")
     chat_container = st.container(height=500)
     for msg in st.session_state.chat_history:
         if msg["role"] == "Jarvis":
-            chat_container.info(f"**🤖 Jarvis:** {msg['text']}")
+            chat_container.info(f"**Jarvis:** {msg['text']}")
         else:
-            chat_container.success(f"**🖐️ You:** {msg['text']}")
+            chat_container.success(f"**You:** {msg['text']}")
 
 with col1:
-    st.subheader("📷 Camera Feed")
-    frame_placeholder = st.empty()  # This is where the video frame will update live
+    st.subheader("Camera Feed")
+    frame_placeholder = st.empty()
 
     if st.session_state.camera_active:
         if not gemini_key:
@@ -154,7 +145,6 @@ with col1:
             st.session_state.camera_active = False
             st.rerun()
 
-        # Initialize LLM and MediaPipe inside the active block
         client = genai.Client(api_key=gemini_key)
         mp_hands = mp.solutions.hands
         mp_drawing = mp.solutions.drawing_utils
@@ -167,7 +157,6 @@ with col1:
 
         cap = cv2.VideoCapture(0)
 
-        # Streamlit Live Camera Loop
         while cap.isOpened() and st.session_state.camera_active:
             success, frame = cap.read()
             if not success:
@@ -217,7 +206,6 @@ with col1:
             else:
                 st.session_state.last_gesture = None
 
-            # Render the frame to the Streamlit UI
             frame_placeholder.image(
                 rgb_frame, channels="RGB", use_container_width=True)
 
