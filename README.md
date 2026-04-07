@@ -4,10 +4,10 @@
 
 
 The below modules/commands are not supported to run on linux servers and rely on windows:
-pywin32
-win32com
-cv2
-webbrowser.open
+* pywin32
+* win32com
+* cv2
+* webbrowser.open
 
 # Echo Motion: AI-Powered Sign Language Assistant
 
