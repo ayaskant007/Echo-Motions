@@ -1,6 +1,6 @@
 # Echo Motion: AI-Powered Sign Language Assistant
 
-**Echo Motion** is a real-time, gesture-controlled digital assistant (Jarvis) that bridges the gap between sign language and computer interaction. Using Computer Vision and Large Language Models (LLMs), it translates finger patterns into complex system commands, web searches, and natural language conversations.
+Echo Motion is a real-time, gesture-controlled digital assistant (Jarvis) that bridges the gap between sign language and computer interaction. Using Computer Vision and Large Language Models (LLMs), it translates finger patterns into complex system commands, web searches, and natural language conversations.
 
 
 
@@ -41,7 +41,7 @@ cd Echo-Motion
 ### 2. Create a Virtual Environment
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+.venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
