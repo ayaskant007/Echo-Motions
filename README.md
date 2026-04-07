@@ -81,4 +81,6 @@ Echo Motion uses a binary state system `(Thumb, Index, Middle, Ring, Pinky)` whe
 | `(0, 0, 0, 0, 1)` | **News** | Reads top headlines via News API |
 | `(1, 1, 0, 0, 1)` | **Love** | "I Love You" sign |
 
+## AI was just used for code debugging purposes.
+
 
