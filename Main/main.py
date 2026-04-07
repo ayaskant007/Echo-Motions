@@ -64,22 +64,22 @@ def processCommand(command):
         speak(response.text)
 
 gesture_map = {
-    (0, 1, 0, 0, 0): "Point",        # Index Only
-    (0, 1, 1, 0, 0): "Peace",        # Index + Middle
-    (1, 1, 1, 1, 1): "Hello",        # All Open
-    (0, 0, 0, 0, 0): "Stop",         # Fist
-    (0, 0, 0, 0, 1): "News",         # Pinky Only
-    (1, 0, 0, 0, 1): "Surprise me",  # Thumb + Pinky (Rock on)
-    (0, 1, 1, 1, 0): "Weather",      # Index, Middle, Ring
+    (0, 1, 0, 0, 0): "Point",
+    (0, 1, 1, 0, 0): "Peace",
+    (1, 1, 1, 1, 1): "Hello",
+    (0, 0, 0, 0, 0): "Stop",
+    (0, 0, 0, 0, 1): "News",
+    (1, 0, 0, 0, 1): "Surprise me",
+    (0, 1, 1, 1, 0): "Weather",
 
 
-    (1, 0, 0, 0, 0): "Google",       # Thumb Only
-    (0, 1, 1, 1, 1): "Search",       # 4 Fingers (No Thumb)
-    (1, 1, 0, 0, 0): "Play",         # Thumb + Index (L-Shape)
-    (0, 0, 1, 1, 1): "Youtube",      # OK Sign (Middle, Ring, Pinky)
-    (1, 1, 0, 0, 1): "Love",         # I Love You (Thumb, Index, Pinky)
-    (1, 1, 1, 0, 0): "Help",         # Thumb, Index, Middle
-    (0, 0, 0, 1, 1): "Facebook"      # Ring + Pinky
+    (1, 0, 0, 0, 0): "Google",
+    (0, 1, 1, 1, 1): "Search",
+    (1, 1, 0, 0, 0): "Play",
+    (0, 0, 1, 1, 1): "Youtube",
+    (1, 1, 0, 0, 1): "Love",
+    (1, 1, 1, 0, 0): "Help",
+    (0, 0, 0, 1, 1): "Facebook"
 }
 
 
@@ -109,8 +109,6 @@ while True:
     results = hands.process(rgb_frame)
 
     if results.multi_hand_landmarks:
-        # print("Hand Detected!")
-
         for hand_landmarks in results.multi_hand_landmarks:
             thumb_tip = hand_landmarks.landmark[4]
             thumb_knuckle = hand_landmarks.landmark[2]
@@ -130,7 +128,6 @@ while True:
             fingers.append(int(ring_tip.y < ring_knuckle.y))
             fingers.append(int(pinky_tip.y < pinky_knuckle.y))
 
-            # print(fingers)
             current_gesture = tuple(fingers)
 
             if current_gesture != last_gesture:

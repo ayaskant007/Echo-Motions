@@ -86,17 +86,13 @@ with st.sidebar:
     (1, 1, 1, 1, 0): "Almost"        Thumb + Index + Middle + Ring (No Pinky) \n
     """)
 
-# --- HELPER FUNCTIONS ---
-
 def update_chat_ui(placeholder):
-    """Forces the chat UI to redraw instantly inside the camera loop."""
     with placeholder.container():
         for msg in st.session_state.chat_history:
             with st.chat_message(msg["role"]):
                 st.write(msg["text"])
 
 def speak(text, chat_placeholder):
-    """Logs to UI and plays audio in a background thread to prevent camera freezing."""
     st.session_state.chat_history.append({"role": "assistant", "text": text})
     update_chat_ui(chat_placeholder)
 
@@ -110,8 +106,7 @@ def speak(text, chat_placeholder):
 
 def processCommand(command, client, chat_placeholder):
     command = command.lower()
-    
-    # Log the user's command instantly
+
     st.session_state.chat_history.append({"role": "user", "text": f"[Signed: {command.capitalize()}]"})
     update_chat_ui(chat_placeholder)
 
@@ -148,7 +143,7 @@ def processCommand(command, client, chat_placeholder):
         try:
             r = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&apiKey={news_key}")
             if r.status_code == 200:
-                articles = r.json().get('articles', [])[:2] # Top 2
+                articles = r.json().get('articles', [])[:2]
                 for article in articles:
                     speak(article['title'], chat_placeholder)
         except Exception:
@@ -170,43 +165,41 @@ st.title("Echo Motion Dashboard")
 col1, col2 = st.columns([2, 1.2]) 
 
 gesture_map = {
-    (0, 1, 0, 0, 0): "Point",        # Index Only
-    (0, 1, 1, 0, 0): "Peace",        # Index + Middle
-    (1, 1, 1, 1, 1): "Hello",        # All Open
-    (0, 0, 0, 0, 0): "Stop",         # Fist
-    (0, 0, 0, 0, 1): "News",         # Pinky Only
-    (1, 0, 0, 0, 1): "Surprise",     # Thumb + Pinky (Shaka)
-    (0, 1, 1, 1, 0): "Weather",      # Index, Middle, Ring
-    (1, 0, 0, 0, 0): "Google",       # Thumb Only
-    (0, 1, 1, 1, 1): "Search",       # 4 Fingers (No Thumb)
-    (1, 1, 0, 0, 0): "Play",         # Thumb + Index (L-Shape)
-    (0, 0, 1, 1, 1): "Youtube",      # OK Sign (Middle, Ring, Pinky)
-    (1, 1, 0, 0, 1): "Love",         # I Love You (Thumb, Index, Pinky)
-    (1, 1, 1, 0, 0): "Help",         # Thumb, Index, Middle
-    (0, 0, 0, 1, 1): "Facebook",     # Ring + Pinky
+    (0, 1, 0, 0, 0): "Point",
+    (0, 1, 1, 0, 0): "Peace",
+    (1, 1, 1, 1, 1): "Hello",
+    (0, 0, 0, 0, 0): "Stop",
+    (0, 0, 0, 0, 1): "News",
+    (1, 0, 0, 0, 1): "Surprise",
+    (0, 1, 1, 1, 0): "Weather",
+    (1, 0, 0, 0, 0): "Google",
+    (0, 1, 1, 1, 1): "Search",
+    (1, 1, 0, 0, 0): "Play",
+    (0, 0, 1, 1, 1): "Youtube",
+    (1, 1, 0, 0, 1): "Love",
+    (1, 1, 1, 0, 0): "Help",
+    (0, 0, 0, 1, 1): "Facebook",
 
-    # Middle finger only 
     (0, 0, 1, 0, 0): "Cancel",
-    # Ring finger only
     (0, 0, 0, 1, 0): "Next",
-    (0, 1, 0, 1, 0): "Pause",        # Index + Ring
-    (0, 1, 0, 0, 1): "Agree",        # Index + Pinky (Promise)
-    (0, 0, 1, 1, 0): "Cut",          # Middle + Ring
-    (0, 0, 1, 0, 1): "Music",        # Middle + Pinky
-    (0, 1, 1, 0, 1): "Network",      # Index + Middle + Pinky (Spider-man web)
-    (0, 1, 0, 1, 1): "Wait",         # Index + Ring + Pinky
+    (0, 1, 0, 1, 0): "Pause",
+    (0, 1, 0, 0, 1): "Agree",
+    (0, 0, 1, 1, 0): "Cut",
+    (0, 0, 1, 0, 1): "Music",
+    (0, 1, 1, 0, 1): "Network",
+    (0, 1, 0, 1, 1): "Wait",
 
-    (1, 0, 1, 0, 0): "Quick",        # Thumb + Middle (Snap)
-    (1, 0, 0, 1, 0): "Call",         # Thumb + Ring
-    (1, 0, 1, 1, 0): "Calculate",    # Thumb + Middle + Ring
-    (1, 0, 0, 1, 1): "Phone",        # Thumb + Ring + Pinky
-    (1, 0, 1, 0, 1): "Party",        # Thumb + Middle + Pinky
-    (1, 0, 1, 1, 1): "Explain",      # Thumb + Middle + Ring + Pinky
+    (1, 0, 1, 0, 0): "Quick",
+    (1, 0, 0, 1, 0): "Call",
+    (1, 0, 1, 1, 0): "Calculate",
+    (1, 0, 0, 1, 1): "Phone",
+    (1, 0, 1, 0, 1): "Party",
+    (1, 0, 1, 1, 1): "Explain",
 
-    (1, 1, 0, 1, 0): "Measure",      # Thumb + Index + Ring
-    (1, 1, 0, 1, 1): "Volume",       # Thumb + Index + Ring + Pinky
-    (1, 1, 1, 0, 1): "Email",        # Thumb + Index + Middle + Pinky
-    (1, 1, 1, 1, 0): "Almost"        # Thumb + Index + Middle + Ring (No Pinky)
+    (1, 1, 0, 1, 0): "Measure",
+    (1, 1, 0, 1, 1): "Volume",
+    (1, 1, 1, 0, 1): "Email",
+    (1, 1, 1, 1, 0): "Almost"
 }
 
 with col2:
