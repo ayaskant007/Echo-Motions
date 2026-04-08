@@ -1,0 +1,1 @@
+    elif "stop" in command:
