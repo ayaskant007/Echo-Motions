@@ -2,13 +2,26 @@ import platform
 import threading
 from urllib.parse import quote_plus
 
-import cv2
-import mediapipe as mp
 import numpy as np
 import requests
 import streamlit as st
 from google import genai
 from PIL import Image
+
+cv2 = None
+mp = None
+
+
+def ensure_vision_libs():
+    """Lazy-load OpenCV and MediaPipe only when camera is activated."""
+    global cv2, mp
+    if cv2 is None:
+        import cv2 as _cv2
+        cv2 = _cv2
+    if mp is None:
+        import mediapipe as _mp
+        mp = _mp
+
 
 try:
     import pywhatkit
@@ -288,6 +301,7 @@ with col1:
             st.session_state.camera_active = False
             st.rerun()
 
+        ensure_vision_libs()
         client = genai.Client(api_key=gemini_key)
         mp_hands = mp.solutions.hands
         mp_drawing = mp.solutions.drawing_utils
