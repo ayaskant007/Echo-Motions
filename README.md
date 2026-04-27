@@ -1,5 +1,6 @@
 # Echo Motion: AI-Powered Sign Language Assistant
-Streamlit website url is: https://
+Streamlit website url is: https://echomotionai.streamlit.app
+IT SLEEPS VERY OFTEN SO LET ME KNOW IF IT SLEPT
 
 Echo Motion is a real-time, gesture-controlled digital assistant (Jarvis) that bridges the gap between sign language and computer interaction. Using Computer Vision and Large Language Models (LLMs), it translates finger patterns into complex system commands, web searches, and natural language conversations.
 
@@ -14,7 +15,7 @@ Echo Motion is a real-time, gesture-controlled digital assistant (Jarvis) that b
 * **Web Dashboard:** A v v cool frontend built with **Streamlit** featuring live chat logs and real-time camera processing.
 * **Threaded Audio (Jarvis):** Custom Windows SAPI integration that allows Jarvis to speak in the background without freezing the video feed it doesnt work on the hosted streamlit website tho due to os limitations 🥀.
 * **Local Automation:**
-    * **Entertainment:** Play any song on YouTube via `pywhatkit` (a button appears on the web version due to server limitations 🥀)
+    * **Entertainment:** Play any song on YouTube via `pywhatkit` (a button appears on the web version due to server limitations 🥀 it doesnt auto open cuz it will open the site on the server itself not on the client's device 😭)
     * **Information:** Fetch live headlines via News API or check the weather.
     * **Web Navigation:** Instant access to Google, Facebook, and YouTube.
 
