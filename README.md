@@ -8,7 +8,7 @@ A SIGN LANGUAGE/GESTURE BASED AI ASSISTANT that bridges the sign language/comput
 
 ## Tech Stack
 
-* **Language:** Python 3.10+
+* **Language:** Python 3.12
 * **Vision:** OpenCV, MediaPipe
 * **AI:** Google Generative AI
 * **Frontend:** Streamlit
